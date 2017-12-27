@@ -28,9 +28,11 @@ def c01(player_id, score):
         player_score[player_id] += int(score)
         print "Score Break score : "+ str(player_score[player_id])
         return 3
+    elif(player_score[player_id]==0):
+        return 0
     else:
         # Client_message( "player" + str(player_id) + "Score" + str(player_score[player_id]))
-        print "player" + str(player_id) + "Score" + str(player_score[player_id])
+        print "player" + str(player_id) + " Score : " + str(player_score[player_id])
         return  1
 
 
@@ -40,16 +42,27 @@ def play_game(player_id):
     # Client_message("player" + str(player_id)+"dartcount"  + str(dart_count))
     while True:
         score = ser.readline()
-        print "def play_game player_id :" +str(player_id)
-        print "def play_game score :" +str(score)
-        dart_count +=c01(player_id,score)
+        status =0
+        # print "def play_game player_id :" +str(player_id)
+        # print "def play_game score :" +str(score)
+        status =c01(player_id,score)
+        # print "play_game stats : "+str(status)
+        if(status == 0):
+            print "stats == 0"
+            return 1
+        elif(status == 3):
+            dart_count =3
+            # print "dart_count : "+str(dart_count)
+        elif(status == 1):
+            dart_count+=1
+            # print "dart_count : "+str(dart_count)
         # Client_message("player" + str(player_id)+"dartcount"  + str(dart_count))
-        print "player" + str(player_id)+"dartcount"  + str(dart_count)
+        print "player" + str(player_id)+" dartcount : "  + str(dart_count)
         if dart_count >= 3:
             ser.close()
             # Client_message("player" + str(player_id)+"Removing Dart...")
             time.sleep(3)
-            print("play_game break")
+            print "player" + str(player_id)+" break"
             break
 
 def setRound(score):
@@ -80,7 +93,11 @@ def main(player,score):
         print ("X in range : "+str(x))
         # Client_message("Round"+str(x))
         for player_id in range(0, int(players)):
-            play_game(player_id)
+            xStatus=0
+            xStatus=play_game(player_id)
+            if(xStatus==1):
+                x=10
+                break
         if  x == Round:
             # Client_message("GameOver")
             print "Game Over"
