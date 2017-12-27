@@ -1,0 +1,96 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/static/countup.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <select class="form-control" id="howmany">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <!-- <button id="msg-btn" type="button" class="btn btn-dark" value="countup">countup</button> -->
+    <button id="msg-301" type="button" class="btn btn-dark" value="301">301</button>
+    <div class="container">
+        <div id="row">
+            <h1 id="Bar">Choose Game</h1> </div>
+        <div class="row">
+            <div id="player0" class="col" style="background-color:#FFCCCC">
+                <h1>player0</h1>
+                <br>
+                <h1 class="player0Score">0</h1>
+                <div class="row" id="player0Remove" style="width:100%;display:none;position:absolute;background-color:white;">
+                    <h1 style="width:100%;display: block;text-align: center;">Removing Dart...</h1>
+                </div>
+                <h1>Dart</h1>
+                <br>
+                <h1 id="player0Dart">0</h1>
+            </div>
+            <div id="player1" class="col" style="background-color:#AAFFEE;display:none;">
+                <h1>player1</h1>
+                <br>
+                <h1 class="player1Score">0</h1>
+                <div class="row" id="player1Remove" style="width:100%;display:none;position:absolute;background-color:white;">
+                    <h1 style="width:100%;display: block;text-align: center;">Removing Dart...</h1>
+                </div>
+                <h1>Dart</h1>
+                <br>
+                <h1 id="player1Dart">0</h1>
+            </div>
+            <div id="player2" class="col" style="background-color:#99FF99;display:none;">
+                <h1>player2</h1>
+                <br>
+                <h1 class="player2Score">0</h1>
+                <div class="row" id="player2Remove" style="width:100%;display:none;position:absolute;background-color:white;">
+                    <h1 style="width:100%;display: block;text-align: center;">Removing Dart...</h1>
+                </div>
+                <h1>Dart</h1>
+                <br>
+                <h1 id="player2Dart">0</h1>
+            </div>
+            <div id="player3" class="col" style="background-color:#CCBBFF;display:none;">
+                <h1>player3</h1>
+                <br>
+                <h1 class="player3Score">0</h1>
+                <div class="row" id="player3Remove" style="width:100%;display:none;position:absolute;background-color:white;">
+                    <h1 style="width:100%;display: block;text-align: center;">Removing Dart...</h1>
+                </div>
+                <h1>Dart</h1>
+                <br>
+                <h1 id="player3Dart">0</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div id="player0btn" class="col" style="background-color:#FFCCCC;display:none;">
+                <h1>player0</h1>
+                <br>
+                <h1 class="player0Score">0</h1>
+            </div>
+            <div id="player1btn" class="col" style="background-color:#AAFFEE;display:none;">
+                <h1>player1</h1>
+                <br>
+                <h1 class="player1Score">0</h1>
+            </div>
+            <div id="player2btn" class="col" style="background-color:#99FF99;display:none;">
+                <h1>player2</h1>
+                <br>
+                <h1 class="player2Score">0</h1>
+            </div>
+            <div id="player3btn" class="col" style="background-color:#CCBBFF;display:none;">
+                <h1>player3</h1>
+                <br>
+                <h1 class="player3Score">0</h1>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

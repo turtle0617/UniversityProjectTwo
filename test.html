@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>jQuery Get Values from Multiple Select Box</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#msgbtn").click(function() {
+            console.log($("#howmany option:selected").val() + $("#msgbtn").val());
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <select class="form-control" id="howmany">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <button id="msgbtn" type="button" class="btn btn-dark" value="countup">countup</button>
+    <form>
+        <label>Country:</label>
+        <select class="country" multiple="multiple" size="5">
+            <option>United States</option>
+            <option>India</option>
+            <option>United Kingdom</option>
+            <option>Brazil</option>
+            <option>Germany</option>
+        </select>
+        <button type="button">Get Values</button>
+    </form>
+</body>
+
+</html>
