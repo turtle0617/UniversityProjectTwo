@@ -18,20 +18,25 @@ def Client_message(message):
 
 def c01(player_id, score):
     global player_score
-    # print "def c01 player_id : " +str(player_id)
-    # print "def c01 score : " +str(score)
-    # print "def c01 player_score[player_id] : " +str(player_score[player_id])
+    if(player_score[player_id]==0):
+        return 0
+        
     player_score[player_id] -= int(score)
-    # print "def c01 player_score[player_id] -=: " +str(player_score[player_id])
 
     if (player_score[player_id]<0):
+        # Client_message("c01player" + str(player_id) + "Break"+ str(player_score[player_id]))
+        Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
+        time.sleep(2)
         player_score[player_id] += int(score)
-        print "Score Break score : "+ str(player_score[player_id])
+        print "player" + str(player_id) + "ScoreBreak score : "+ str(player_score[player_id])
+        Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
+
+        # Client_message("c01player" + str(player_id) + "Break"+ str(player_score[player_id]))
         return 3
     elif(player_score[player_id]==0):
         return 0
     else:
-        # Client_message( "player" + str(player_id) + "Score" + str(player_score[player_id]))
+        Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
         print "player" + str(player_id) + " Score : " + str(player_score[player_id])
         return  1
 
@@ -39,7 +44,9 @@ def c01(player_id, score):
 def play_game(player_id):
     ser = serial.Serial('/dev/ttyACM0', 9600)
     dart_count = 0
-    # Client_message("player" + str(player_id)+"dartcount"  + str(dart_count))
+    Client_message("c01player" + str(player_id)+"dartcount"  + str(dart_count))
+    print "line 46"
+
     while True:
         score = ser.readline()
         status =0
@@ -47,20 +54,23 @@ def play_game(player_id):
         # print "def play_game score :" +str(score)
         status =c01(player_id,score)
         # print "play_game stats : "+str(status)
+        # score==0
         if(status == 0):
             print "stats == 0"
             return 1
+        # BREAK
         elif(status == 3):
             dart_count =3
             # print "dart_count : "+str(dart_count)
         elif(status == 1):
             dart_count+=1
             # print "dart_count : "+str(dart_count)
-        # Client_message("player" + str(player_id)+"dartcount"  + str(dart_count))
-        print "player" + str(player_id)+" dartcount : "  + str(dart_count)
+            Client_message("c01player" + str(player_id)+"dartcount"  + str(dart_count))
+            print "line 68"
+            print "player" + str(player_id)+" dartcount : "  + str(dart_count)
         if dart_count >= 3:
             ser.close()
-            # Client_message("player" + str(player_id)+"Removing Dart...")
+            Client_message("c01player" + str(player_id)+"Removing Dart...")
             time.sleep(3)
             print "player" + str(player_id)+" break"
             break
@@ -88,10 +98,10 @@ def main(player,score):
     setRound(score)
     # print "c01 Round = "+str(Round)
 
-    # Client_message("01 START!!")
+    Client_message("c01START!!")
     for x in range(1, Round+1):
         print ("X in range : "+str(x))
-        # Client_message("Round"+str(x))
+        Client_message("c01Round"+str(x))
         for player_id in range(0, int(players)):
             xStatus=0
             xStatus=play_game(player_id)
@@ -99,7 +109,7 @@ def main(player,score):
                 x=10
                 break
         if  x == Round:
-            # Client_message("GameOver")
+            Client_message("c01GameOver")
             print "Game Over"
             player_score = [0] 
             players=0

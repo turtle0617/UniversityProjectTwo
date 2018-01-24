@@ -23,39 +23,48 @@ def Countup(player_id, score):
         player_score=player_score* int(globall.amount)
 
     player_score[player_id]+=int(score)
-    Client_message( "player" + str(player_id) + "Score" + str(player_score[player_id]))
+    Client_message("countup"+ "player" + str(player_id) + "Score" + str(player_score[player_id]))
     print "player" + str(player_id) + "Score" + str(player_score[player_id])
 
 
-def play_game(player_id):
+def play_game(player_id,roundd,allplayer):
+    finalround = 2
     ser = serial.Serial('/dev/ttyACM0', 9600)
-    # Client_message("Player " + str(player_id)+" roundd !")    
+    # Client_message("countup"+"Player " + str(player_id)+" roundd !")    
     dart_count = 0
-    Client_message("player" + str(player_id)+"dartcount"  + str(dart_count))
+    Client_message("countup"+"player" + str(player_id)+"dartcount"  + str(dart_count))
+    print "line 36"
     while True:
         score = ser.readline()
         Countup(player_id,score)
         dart_count += 1
-        Client_message("player" + str(player_id)+"dartcount"  + str(dart_count))
+        Client_message("countup"+"player" + str(player_id)+"dartcount"  + str(dart_count))
+        print "line 42"
+
         print "player" + str(player_id)+"dartcount"  + str(dart_count)
         if dart_count >= 3:
-            ser.close()
-            Client_message("player" + str(player_id)+"Removing Dart...")
-            time.sleep(3)
-            print("play_game break")
-            break
+            if roundd == finalround and allplayer<=1:
+                ser.close()
+                break
+            else:
+                ser.close()
+                Client_message("countup"+"player" + str(player_id)+"Removing Dart...")
+                time.sleep(3)
+                print("play_game break")
+                break
 
 def main():
     global player_score
     player_amount = globall.amount
-    Client_message("Count up START!!")
-    for x in range(1, 5):
+    Client_message("countup"+"Count up START!!")
+    Round=3
+    for x in range(1, Round):
         print ("X in range : "+str(x))
-        Client_message("Round"+str(x))
+        Client_message("countup"+"Round"+str(x))
         for player_id in range(0, int(player_amount)):
-            play_game(player_id)
-        if  x == 4:
-            Client_message("GameOver")
+            play_game(player_id,x,int(player_amount))
+        if  x == Round-1:
+            Client_message("countup"+"GameOver")
             print "Game Over"
             player_score = [0] 
             globall.amount=0

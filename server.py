@@ -28,6 +28,7 @@ class Socket(websocket.WebSocketHandler):
         print ' [V] connected.'
         ChatManager.add_user(self)
         countup.Client_append(self)
+        c01.Client_append(self)
     def on_close(self):
         print ' [x] disconnected.'
         ChatManager.remove_user(self)
@@ -47,7 +48,7 @@ def splitString(string):
         print "server split[1] :" +str(splits[1])
         globall.amount = str(splits[0])
         countup.main()
-    elif(splits[1]=="301"):
+    elif(splits[1]=="301"or"501"or"701"):
         c01.main(splits[0],splits[1])
         print "server splits = 301"
 

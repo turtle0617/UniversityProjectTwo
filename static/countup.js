@@ -1,3 +1,4 @@
+var c01=require('./c01.js');
 var totalplayer;
 var chatObj = {
     host: location.host,
@@ -18,11 +19,10 @@ var chatObj = {
             }
     },
     // 發送訊息至 Server 端
-    sendMsg: function() {
-        var msg_input = $("#msg-301");
-        console.log($("#howmany option:selected").val() + $("#msg-301").val());
-        totalplayer = $("#howmany option:selected").val()+" " +$("#msg-301").val();
-        chatObj.socket.send(totalplayer);
+    sendMsg: function(gamemode) {
+        console.log($("#howmany option:selected").val() +gamemode);
+        totalplayer = $("#howmany option:selected").val();
+        chatObj.socket.send($("#howmany option:selected").val() + " " + gamemode);
 
     },
     // 顯示訊息
@@ -30,30 +30,51 @@ var chatObj = {
         mesif(message);
     }
 };
-
 $(function() {
-    var btn = $("#msg-301");
-    // 綁定按鈕 click 時發送訊息
-    btn.click(function() {
+    $('#301, #countup').click(function() {
+        console.log('clicked2', this.id);
         $("#player0btn").hide();
         $("#player1btn").hide();
         $("#player2btn").hide();
         $("#player3btn").hide();
-        $(".player0Score").text(0);
-        $(".player1Score").text(0);
-        $(".player2Score").text(0);
-        $(".player3Score").text(0);
+        $(".player0Score").text($(this).val());
+        $(".player1Score").text($(this).val());
+        $(".player2Score").text($(this).val());
+        $(".player3Score").text($(this).val());
         $("#player0Dart").text(0);
         $("#player1Dart").text(0);
         $("#player2Dart").text(0);
         $("#player3Dart").text(0);
-        chatObj.sendMsg();
-        // btn.hide();
+        chatObj.sendMsg(this.id);
         return false;
     });
 
     chatObj.init();
 });
+
+//if button is countup 
+// $(function() {
+//     var btn01 = $("#msg-301");
+//     btn01.click(function() {
+//         $("#player0btn").hide();
+//         $("#player1btn").hide();
+//         $("#player2btn").hide();
+//         $("#player3btn").hide();
+//         $(".player0Score").text(0);
+//         $(".player1Score").text(0);
+//         $(".player2Score").text(0);
+//         $(".player3Score").text(0);
+//         $("#player0Dart").text(0);
+//         $("#player1Dart").text(0);
+//         $("#player2Dart").text(0);
+//         $("#player3Dart").text(0);
+//         chatObj.sendMsg();
+//         // btn.hide();
+//         return false;
+//     });
+
+//     chatObj.init();
+// });
 
 //第一層字串判斷
 function mesif(mes) {
