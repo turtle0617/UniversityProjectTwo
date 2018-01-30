@@ -58,7 +58,7 @@ def main():
     global player_score
     player_amount = globall.amount
     Client_message("countup"+"Count up START!!")
-    Round=3
+    Round=9
     for x in range(1, Round):
         print ("X in range : "+str(x))
         Client_message("countup"+"Round"+str(x))

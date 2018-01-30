@@ -10,6 +10,7 @@ player_score = [0]
 player_mod=[0]
 users=[]
 Round=0
+setScore=0
 def Client_append(user):
     users.append(user)
 
@@ -54,15 +55,38 @@ def c01(player_id):
             break
 
 def countscore(player_id,scoreMod ,score,beforeScore):
-    global player_score,player_mod
+    global player_score,player_mod,setScore
     cscore =0
     cscore = int(player_score[player_id])
-    Outmod=0
-    Outmod=player_mod[player_id].split("and")
+    mod=0
+    mod=player_mod[player_id].split("and")
+
     if(player_score[player_id]==0):
         return 0
-        
-    cscore -= int(score)
+
+    if(int(player_score[player_id])==int(setScore)):
+        print "player_score[player_id] : "+ str(player_score[player_id])+"==setScore"
+        if(mod[0]=="Open"):
+            print "mod[0] :"+str(mod[0])
+            cscore -= int(score)
+        elif(mod[0]=="Double"):
+            print "mod[0] :"+str(mod[0])
+            if(scoreMod=="D"):
+                print "mod[0] :"+str(mod[0])+"and scoreMod :"+scoreMod
+                cscore -= int(score)
+            else:
+                print "mod[0] :"+str(mod[0])+"and scoreMod :"+scoreMod
+                return 1
+        elif(mod[0]=="Master"):
+            print "mod[0]"+str(mod[0])
+            if(scoreMod=="T"or scoreMod=="D" or score=="50"):
+                print "mod[0] :"+str(mod[0])+"and scoreMod :"+scoreMod
+                cscore -= int(score)
+            else:
+                print "mod[0] :"+str(mod[0])+"and scoreMod :"+scoreMod
+                return 1        
+    else:
+        cscore -= int(score)
 
     if (cscore<0):
         # Client_message("c01player" + str(player_id) + "Break"+ str(player_score[player_id]))
@@ -80,13 +104,13 @@ def countscore(player_id,scoreMod ,score,beforeScore):
         return 3
 
     elif(cscore==0):
-        if(Outmod[1]=="Open"):
-            print "Outmod[1]==Open"
+        if(mod[1]=="Open"):
+            print "mod[1]==Open"
             Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
             player_score[player_id] = cscore
             return 0
-        elif(Outmod[1]=="Double"):
-            print "Outmod[1]==Double"
+        elif(mod[1]=="Double"):
+            print "mod[1]==Double"
             if(scoreMod=="D"or score=="50"):
                 print "scoreMod==D or score==50"
                 Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
@@ -100,8 +124,8 @@ def countscore(player_id,scoreMod ,score,beforeScore):
                 player_score[player_id] = cscore
                 Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
                 return 3
-        elif(Outmod[1]=="Master"):
-            print "Outmod[1]==Master"
+        elif(mod[1]=="Master"):
+            print "mod[1]==Master"
             if(scoreMod=="T"or scoreMod=="D"or score=="50"):
                 Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
                 print "scoreMod==T or scoreMod==D or score==50"
@@ -116,9 +140,9 @@ def countscore(player_id,scoreMod ,score,beforeScore):
                 Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
                 return 3
     else:
-        if(cscore<3 and Outmod[1]=="Master"):
+        if(cscore<3 and mod[1]=="Master"):
             print "line111 countscore beforeScore :"+str(beforeScore)
-            print "line112 Outmod[1]=="+str(Outmod[1])+"and Break"
+            print "line112 mod[1]=="+str(mod[1])+"and Break"
             Client_message("c01player" + str(player_id) + "Break" + str(cscore))
             time.sleep(2)
             cscore+=beforeScore
@@ -126,9 +150,9 @@ def countscore(player_id,scoreMod ,score,beforeScore):
             print "line116 player" + str(player_id) + "ScoreBreak score : "+ str(cscore)
             Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
             return 3
-        elif(cscore<2 and Outmod[1]=="Double"):
+        elif(cscore<2 and mod[1]=="Double"):
             print "line120 countscore beforeScore :"+str(beforeScore)
-            print "line121 Outmod[1]=="+str(Outmod[1])+"and Break"
+            print "line121 mod[1]=="+str(mod[1])+"and Break"
             Client_message("c01player" + str(player_id) + "Break" + str(cscore))
             time.sleep(2)
             print "line124 player" + str(player_id) + "ScoreBreak score : "+ str(cscore)
@@ -137,10 +161,10 @@ def countscore(player_id,scoreMod ,score,beforeScore):
             Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
             return 3
         else:
-            print "line129 Outmod[1]=="+str(Outmod[1])
+            print "line154 mod[1]=="+str(mod[1])
             player_score[player_id] = cscore
             Client_message("c01player" + str(player_id) + "Score" + str(player_score[player_id]))
-            print "line132 player" + str(player_id) + " Score : " + str(player_score[player_id])
+            print "line157 player" + str(player_id) + " Score : " + str(player_score[player_id])
             return  1
 
 
@@ -156,8 +180,9 @@ def setRound(score):
         Round = 20
 
 def main(player,score,pMod):
-    global player_score,Round,players,player_mod
+    global player_score,Round,players,player_mod,setScore
     Winner=0
+    setScore=score
     players = int(player)
     player_score=[int(score)]*int(players)
     setRound(score)
