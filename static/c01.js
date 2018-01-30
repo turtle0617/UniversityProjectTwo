@@ -106,14 +106,13 @@ module.exports = function c01(mes, tplayer) {
         player(mes, "player3");
 
     } else if (mes.search("GameOver") != -1) {
+        mes =mes.replace("GameOver","");
+        console.log("mes :"+mes);
+        console.log("mes :"+".player"+mes+"Score");
         $("#Bar").text("Game over");
         $("#selectmod").show();
-        
-        // $("#player0Score").text(0);
-        // $("#player1Score").text(0);
-        // $("#player0Dart").text(0);
-        // $("#player1Dart").text(0);
-        $("#player0Remove").hide();
+        $(".player"+mes+"Score").text(0);
+        $("#player"+mes+"Dart").text(0);
         $("#player1Remove").hide();
         $("#player2Remove").hide();
         $("#player3Remove").hide();
@@ -128,16 +127,19 @@ module.exports = function c01(mes, tplayer) {
 //第二層字串判斷。由於玩家人數無法每次都得知故把id採用變數避免過多一樣的函式很醜！
 function player(player, mestext) {
     var id = mestext;
+    // console.log("c01 line 132 player is : "+player);
     // console.log("player is: " + id);
     // console.log($("#" + id + "Remove").hide());
     $("#" + id + "Remove").hide();
+    $("#" + id + "Break").hide();
 
     if (player.search("Score") != -1) {
         // console.log("#" + id + "Score work");
         $("." + id + "Score").text(player.replace(id + "Score", ""));
         // console.log(id + "Score" + player.replace(id + "Score", ""));
     } else if (player.search("Break") != -1) {
-        $("." + id + "Score").text(player.replace(id + "Score", ""));
+        $("." + id + "Score").text(player.replace(id + "Break", ""));
+        $("#" + id + "Break").show();
     } else if (player.search("dart") != -1) {
         // console.log("#" + id + "Dart work");
         $("#" + id + "Dart").text(player.replace(id + "dartcount", ""));

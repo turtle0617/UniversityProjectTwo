@@ -1,4 +1,5 @@
-var c01=require('./c01.js');
+var c01 = require('./c01.js');
+var countup = require('./countup.js');
 var totalplayer;
 var chatObj = {
     host: location.host,
@@ -19,19 +20,20 @@ var chatObj = {
             }
     },
     // 發送訊息至 Server 端
-    sendMsg: function(gamemode) {
-        console.log($("#howmany option:selected").val() +gamemode);
+    sendMsg: function(gamemode, InOut) {
+        // console.log($("#howmany option:selected").val() + gamemode);
         totalplayer = $("#howmany option:selected").val();
-        chatObj.socket.send($("#howmany option:selected").val() + " " + gamemode);
+        chatObj.socket.send($("#howmany option:selected").val() + " " + gamemode + " " + InOut);
+        // console.log($("#howmany option:selected").val() + " " + gamemode+ " "  + InOut);
 
     },
     // 顯示訊息
     showMsg: function(message) {
-        if (message.search("c01") != -1){
-            c01(message.replace("c01",""),totalplayer)
+        if (message.search("c01") != -1) {
+            c01(message.replace("c01", ""), totalplayer)
             console.log(message);
-        }else if(message.search("countup") != -1){
-            countup(message.replace("countup",""));
+        } else if (message.search("countup") != -1) {
+            countup(message.replace("countup", ""), totalplayer);
             console.log(message);
 
         }
@@ -39,9 +41,13 @@ var chatObj = {
 
     }
 };
+
+//Countup 按鈕觸發
+
 $(function() {
-    $('#301,#501,#701,#countup').click(function() {
-        console.log('clicked2', this.id);
+    $('#countup').click(function() {
+        // console.log('clicked2', this.id);
+        $("#Scoreshow").show();
         $("#selectmod").hide();
         $("#player0btn").hide();
         $("#player1btn").hide();
@@ -56,194 +62,121 @@ $(function() {
         $("#player2Dart").text(0);
         $("#player3Dart").text(0);
 
-        chatObj.sendMsg(this.id);
+        chatObj.sendMsg(this.id, "");
         return false;
     });
-
     chatObj.init();
 });
 
-//if button is countup 
-// $(function() {
-//     var btn01 = $("#msg-301");
-//     btn01.click(function() {
-//         $("#player0btn").hide();
-//         $("#player1btn").hide();
-//         $("#player2btn").hide();
-//         $("#player3btn").hide();
-//         $(".player0Score").text(0);
-//         $(".player1Score").text(0);
-//         $(".player2Score").text(0);
-//         $(".player3Score").text(0);
-//         $("#player0Dart").text(0);
-//         $("#player1Dart").text(0);
-//         $("#player2Dart").text(0);
-//         $("#player3Dart").text(0);
-//         chatObj.sendMsg();
-//         // btn.hide();
-//         return false;
-//     });
+//01Game 按鈕觸發
+$(function() {
+    var mod = 0;
+    $('#301,#501,#701').click(function() {
+        $("#InOutchoice").show();
+        $("#selectmod").hide();
+        mod = this.id;
+        totalplayer = $("#howmany option:selected").val();
+        switch (totalplayer) {
+            case "1":
+                // console.log(totalplayer);
+                $("#cplayer0").show()
+                $("#cplayer1").hide()
+                $("#cplayer2").hide()
+                $("#cplayer3").hide()
+                break;
+            case "2":
+                // console.log(totalplayer);
+                $("#cplayer0").show()
+                $("#cplayer1").show()
+                $("#cplayer2").hide()
+                $("#cplayer3").hide()
+                break;
+            case "3":
+                // console.log(totalplayer);
+                $("#cplayer0").show()
+                $("#cplayer1").show()
+                $("#cplayer2").show()
+                $("#cplayer3").hide()
+                break;
+            case "4":
+                // console.log(totalplayer);
+                $("#cplayer0").show()
+                $("#cplayer1").show()
+                $("#cplayer2").show()
+                $("#cplayer3").show()
+                break;
+        };
+    });
 
-//     chatObj.init();
-// });
-
-//第一層字串判斷
-function countup(mes) {
-
-    if (mes.search("player0") != -1) {
-        if (totalplayer == 1) {
-            $("#player0").show();
-            $("#player1").hide();
-            $("#player2").hide();
-            $("#player3").hide();
-            $("#player0btn").hide();
-            $("#player1btn").hide();
-            $("#player2btn").hide();
-            $("#player3btn").hide();
-        } else if (totalplayer == 2) {
-            $("#player0").show();
-            $("#player1").hide();
-            $("#player2").hide();
-            $("#player3").hide();
-            $("#player0btn").hide();
-            $("#player1btn").show();
-            $("#player2btn").hide();
-            $("#player3btn").hide();
-        } else if (totalplayer == 3) {
-            $("#player0").show();
-            $("#player1").hide();
-            $("#player2").hide();
-            $("#player3").hide();
-            $("#player0btn").hide();
-            $("#player1btn").show();
-            $("#player2btn").show();
-            $("#player3btn").hide();
-        } else if (totalplayer == 4) {
-            $("#player0").show();
-            $("#player1").hide();
-            $("#player2").hide();
-            $("#player3").hide();
-            $("#player0btn").hide();
-            $("#player1btn").show();
-            $("#player2btn").show();
-            $("#player3btn").show();
+    $('#cplayer0In,#cplayer0Out,#cplayer1In,#cplayer1Out,#cplayer2In,#cplayer2Out,#cplayer3In,#cplayer3Out').click(function() {
+        var $this = $(this);
+        if ($this.val() == "Open") {
+            $this.text('Double');
+            $this.val("Double");
+            $this.attr('class', "btn btn-warning")
+                // console.log($this.val());
+        } else if ($this.val() == "Double") {
+            $this.text('Master');
+            $this.val("Master");
+            $this.attr('class', "btn btn-danger")
+                // console.log($this.val());
+        } else if ($this.val() == "Master") {
+            $this.text('Open');
+            $this.val("Open")
+            $this.attr('class', "btn btn-dark")
+                // console.log($this.val());
         }
-
-        player(mes, "player0");
-    } else if (mes.search("player1") != -1) {
-        if (totalplayer == 2) {
-            $("#player0").hide();
-            $("#player1").show();
-            $("#player2").hide();
-            $("#player3").hide();
-            $("#player0btn").show();
-            $("#player1btn").hide();
-            $("#player2btn").hide();
-            $("#player3btn").hide();
-        } else if (totalplayer == 3) {
-            $("#player0").hide();
-            $("#player1").show();
-            $("#player2").hide();
-            $("#player3").hide();
-            $("#player0btn").show();
-            $("#player1btn").hide();
-            $("#player2btn").show();
-            $("#player3btn").hide();
-        } else if (totalplayer == 4) {
-            $("#player0").hide();
-            $("#player1").show();
-            $("#player2").hide();
-            $("#player3").hide();
-            $("#player0btn").show();
-            $("#player1btn").hide();
-            $("#player2btn").show();
-            $("#player3btn").show();
-        }
-        player(mes, "player1");
-
-    } else if (mes.search("player2") != -1) {
-        if (totalplayer == 3) {
-            $("#player0").hide();
-            $("#player1").hide();
-            $("#player2").show();
-            $("#player3").hide();
-            $("#player0btn").show();
-            $("#player1btn").show();
-            $("#player2btn").hide();
-            $("#player3btn").hide();
-        } else if (totalplayer == 4) {
-            $("#player0").hide();
-            $("#player1").hide();
-            $("#player2").show();
-            $("#player3").hide();
-            $("#player0btn").show();
-            $("#player1btn").show();
-            $("#player2btn").hide();
-            $("#player3btn").show();
-        }
-        player(mes, "player2");
-
-    } else if (mes.search("player3") != -1) {
-        $("#player3").show();
-        $("#player0").hide();
-        $("#player1").hide();
-        $("#player2").hide();
-        $("#player3btn").hide();
-        $("#player1btn").show();
-        $("#player2btn").show();
-        $("#player0btn").show();
-        player(mes, "player3");
-
-    } else if (mes.search("GameOver") != -1) {
-        $("#Bar").text("Game over");
-        // $("#player0Score").text(0);
-        // $("#player1Score").text(0);
-        // $("#player0Dart").text(0);
-        // $("#player1Dart").text(0);
-        $("#player0Remove").hide();
-        $("#player1Remove").hide();
-        $("#player2Remove").hide();
-        $("#player3Remove").hide();
+    });
+    $("#InOutback").click(function() {
+        $("#InOutchoice").hide();
         $("#selectmod").show();
-
-    } else if (mes.search("Round") != -1) {
-        // console.log("Bar mes :" + mes);
-        $("#Bar").text(mes);
-    } else {
-        $("#Bar").text(mes);
-
-    }
-};
-//第二層字串判斷。由於玩家人數無法每次都得知故把id採用變數避免過多一樣的函式很醜！
-function player(player, mestext) {
-    var id = mestext;
-    // console.log("var player is: " + id);
-    $("#" + id + "Remove").hide();
-    if (player.search("Score") != -1) {
-        // console.log("#" + id + "Score work");
-        $("." + id + "Score").text(player.replace(id + "Score", ""));
-        // console.log(id + "Score" + player.replace(id + "Score", ""));
-    } else if (player.search("dart") != -1) {
-        // console.log("#" + id + "Dart work");
-        $("#" + id + "Dart").text(player.replace(id + "dartcount", ""));
-        // console.log(id + "dartcount" + player.replace(id + "dartcount", ""));
-    } else if (player.search("Removing" != -1)) {
-        // console.log("#" + id + "Remove work");
-        $("#" + id + "Remove").show();
-    }
-};
-
-
-//jqueryID都採用字串形式
-// function player1(player1,mestext) {
-//     $("#player1Remove").hide();
-//     if (player1.search("Score") != -1) {
-//         $("#player1Score").text(player1.replace("player1Score", ""));
-//         console.log("Player1Score" + player1.replace("player1Score", ""));
-//     } else if (player1.search("dart") != -1) {
-//         $("#player1Dart").text(player1.replace("player1dartcount", ""));
-//         console.log("player1dartcount" + player1.replace("player1dartcount", ""));
-//     } else if (player1.search("Removing" != -1)) {
-//         $("#player1Remove").show();
-//     }
-// };
+    });
+    $("#InOutGO").click(function() {
+        totalplayer = $("#howmany option:selected").val();
+        $("#Scoreshow").show();
+        $("#InOutchoice").hide();
+        // $("#selectmod").hide();
+        // console.log(totalplayer + mod);
+        switch (totalplayer) {
+            case "1":
+                InOut = "player0" + $("#cplayer0In").val() + "and" + $("#cplayer0Out").val();
+                $(".player0Score").text(mod);
+                $(".player1Score").text(mod);
+                $(".player2Score").text(mod);
+                $(".player3Score").text(mod);
+                chatObj.sendMsg(mod, InOut);
+                break;
+            case "2":
+                InOut = "player0" + $("#cplayer0In").val() + "and" + $("#cplayer0Out").val() + "/" +
+                    "player1" + $("#cplayer1In").val() + "and" + $("#cplayer1Out").val();
+                $(".player0Score").text(mod);
+                $(".player1Score").text(mod);
+                $(".player2Score").text(mod);
+                $(".player3Score").text(mod);
+                chatObj.sendMsg(mod, InOut);
+                break;
+            case "3":
+                InOut = "player0" + $("#cplayer0In").val() + "and" + $("#cplayer0Out").val() + "/" +
+                    "player1" + $("#cplayer1In").val() + "and" + $("#cplayer1Out").val() + "/" +
+                    "player2" + $("#cplayer2In").val() + "and" + $("#cplayer2Out").val();
+                $(".player0Score").text(mod);
+                $(".player1Score").text(mod);
+                $(".player2Score").text(mod);
+                $(".player3Score").text(mod);
+                chatObj.sendMsg(mod, InOut);
+                break;
+            case "4":
+                InOut = "player0" + $("#cplayer0In").val() + "and" + $("#cplayer0Out").val() + "/" +
+                    "player1" + $("#cplayer1In").val() + "and" + $("#cplayer1Out").val() + "/" +
+                    "player2" + $("#cplayer2In").val() + "and" + $("#cplayer2Out").val() + "/" +
+                    "player3" + $("#cplayer3In").val() + "and" + $("#cplayer3Out").val();
+                $(".player0Score").text(mod);
+                $(".player1Score").text(mod);
+                $(".player2Score").text(mod);
+                $(".player3Score").text(mod);
+                chatObj.sendMsg(mod, InOut);
+                break;
+        }
+    });
+    chatObj.init();
+});

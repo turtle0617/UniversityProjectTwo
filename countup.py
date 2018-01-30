@@ -35,8 +35,9 @@ def play_game(player_id,roundd,allplayer):
     Client_message("countup"+"player" + str(player_id)+"dartcount"  + str(dart_count))
     print "line 36"
     while True:
-        score = ser.readline()
-        Countup(player_id,score)
+        data = ser.readline()
+        score = data.split()
+        Countup(player_id,score[1])
         dart_count += 1
         Client_message("countup"+"player" + str(player_id)+"dartcount"  + str(dart_count))
         print "line 42"

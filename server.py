@@ -43,14 +43,17 @@ class Socket(websocket.WebSocketHandler):
         # countup.main()
 
 def splitString(string):
+    # print string
     splits = string.split()
     if(splits[1]=="countup"):
         print "server split[1] :" +str(splits[1])
         globall.amount = str(splits[0])
+        print splits
         countup.main()
     elif(splits[1]=="301"or"501"or"701"):
-        c01.main(splits[0],splits[1])
-        print "server splits = 301"
+        c01.main(splits[0],splits[1],splits[2])
+        # print "server split[1] :" +str(splits[1])
+        # print splits
 
 
 settings = dict(
