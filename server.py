@@ -54,7 +54,8 @@ def splitString(string):
         c01.main(splits[0],splits[1],splits[2])
         # print "server split[1] :" +str(splits[1])
         # print splits
-
+    elif(splits[1]=="cricket"):
+        cricket.main(splits[0])
 
 settings = dict(
     debug=True,

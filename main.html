@@ -2,13 +2,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="/static/bundle.js"></script>
+    <script src="./static/test.js"></script>
 </head>
 
 <body>
     <div id="selectmod" style="width:90%;margin:0 auto;display:block;">
+        <h4>Cricket Max player:2</h4>
         <select class="form-control" id="howmany">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -19,6 +20,7 @@
         <button id="301" type="button" class="btn btn-dark" value="301">301</button>
         <button id="501" type="button" class="btn btn-dark" value="501">501</button>
         <button id="701" type="button" class="btn btn-dark" value="701">701</button>
+        <button id="CR" type="button" class="btn btn-dark" value="CR">Cricket</button>
     </div>
     <div id="InOutchoice" style="display:none">
         <div class="row">
@@ -145,6 +147,81 @@
                 <h1 class="player3Score">0</h1>
             </div>
         </div>
+    </div>
+    <div id="cricket" class="container" style="display:block">
+        <div class="row" style="width:100%;">
+            <div class="col rounded" style="display:blcok">
+                <div class="rounded" style="width:40%;float:right;background-color:rgba(198, 51, 0,0.5)">
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p0_20block"src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p0_19block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p0_18block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p0_17block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p0_16block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p0_15block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p0_Bullblock" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 " style="text-align:center">
+                <h1>20</h1>
+                <h1>19</h1>
+                <h1>18</h1>
+                <h1>17</h1>
+                <h1>16</h1>
+                <h1>15</h1>
+                <h1>BULL</h1>
+            </div>
+            <div class="col rounded" style="display:blcok">
+                <div class="rounded" style="width:40%;float:left;background-color:rgba(0, 60, 157,0.5)">
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p1_20block"src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p1_19block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p1_18block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p1_17block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p1_16block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p1_15block" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                    <div style="height:55px;width=55px;margin-top:2.5px">
+                        <img id="p1_Bullblock" src="./static/1.png" alt="circle" height="46" width="46" style="display:none; margin:auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="width:70%;margin:0 auto">
+            <div class="col " style="text-align:center">
+                <h2 >socre</h2>
+                <h2 id="CRp0Score">0</h2>
+            </div>
+            <div class="col-4 " style="text-align:center"></div>
+            <div class="col " style="text-align:center">
+                <h2>socre</h2>
+                <h2 id="CRp1Score">0</h2>
+            </div>
+        </div>
+    </div>
     </div>
 </body>
 

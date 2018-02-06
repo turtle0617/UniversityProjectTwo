@@ -1,46 +1,5 @@
-var c01 = require('./c01.js');
-var countup = require('./countup.js');
 var totalplayer;
-var chatObj = {
-    host: location.host,
-    socket: null,
-    // 開啟一個 WebSocket 連線，並設定相關動作
-    init: function() {
-        var url = "ws://" + chatObj.host + "/socket";
-        chatObj.socket = new WebSocket(url);
-        chatObj.socket.onmessage = function(event) {
-                // console.log(event);
-                chatObj.showMsg(event.data);
-            },
-            chatObj.socket.onclose = function(event) {
-                console.log("on close");
-            },
-            chatObj.socket.onerror = function(event) {
-                console.log("on error");
-            }
-    },
-    // 發送訊息至 Server 端
-    sendMsg: function(gamemode, InOut) {
-        // console.log($("#howmany option:selected").val() + gamemode);
-        totalplayer = $("#howmany option:selected").val();
-        chatObj.socket.send($("#howmany option:selected").val() + " " + gamemode + " " + InOut);
-        // console.log($("#howmany option:selected").val() + " " + gamemode+ " "  + InOut);
 
-    },
-    // 顯示訊息
-    showMsg: function(message) {
-        if (message.search("c01") != -1) {
-            c01(message.replace("c01", ""), totalplayer)
-            console.log(message);
-        } else if (message.search("countup") != -1) {
-            countup(message.replace("countup", ""), totalplayer);
-            console.log(message);
-
-        }
-        // countup(message);
-
-    }
-};
 
 //Countup 按鈕觸發
 
@@ -62,7 +21,6 @@ $(function() {
         $("#player2Dart").text(0);
         $("#player3Dart").text(0);
 
-        chatObj.sendMsg(this.id, "");
         return false;
     });
     $('#CR').click(function() {
@@ -72,10 +30,8 @@ $(function() {
         $("#selectmod").hide();
         
 
-        chatObj.sendMsg(this.id, "");
         return false;
     });
-    chatObj.init();
 });
 
 //01Game 按鈕觸發
@@ -83,6 +39,7 @@ $(function() {
     var mod = 0;
     $('#301,#501,#701').click(function() {
         $("#InOutchoice").show();
+        $("#cricket").hide();
         $("#selectmod").hide();
         mod = this.id;
         totalplayer = $("#howmany option:selected").val();
@@ -155,7 +112,6 @@ $(function() {
                 $(".player1Score").text(mod);
                 $(".player2Score").text(mod);
                 $(".player3Score").text(mod);
-                chatObj.sendMsg(mod, InOut);
                 break;
             case "2":
                 InOut = "player0" + $("#cplayer0In").val() + "and" + $("#cplayer0Out").val() + "/" +
@@ -164,7 +120,6 @@ $(function() {
                 $(".player1Score").text(mod);
                 $(".player2Score").text(mod);
                 $(".player3Score").text(mod);
-                chatObj.sendMsg(mod, InOut);
                 break;
             case "3":
                 InOut = "player0" + $("#cplayer0In").val() + "and" + $("#cplayer0Out").val() + "/" +
@@ -174,7 +129,6 @@ $(function() {
                 $(".player1Score").text(mod);
                 $(".player2Score").text(mod);
                 $(".player3Score").text(mod);
-                chatObj.sendMsg(mod, InOut);
                 break;
             case "4":
                 InOut = "player0" + $("#cplayer0In").val() + "and" + $("#cplayer0Out").val() + "/" +
@@ -185,9 +139,7 @@ $(function() {
                 $(".player1Score").text(mod);
                 $(".player2Score").text(mod);
                 $(".player3Score").text(mod);
-                chatObj.sendMsg(mod, InOut);
                 break;
         }
     });
-    chatObj.init();
 });

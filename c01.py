@@ -199,7 +199,7 @@ def main(player,score,pMod):
             xStatus=0
             xStatus=c01(player_id)
             if(xStatus==1):
-                x=10
+                x=Round
                 Winner=player_id
                 break
         if  x == Round:
