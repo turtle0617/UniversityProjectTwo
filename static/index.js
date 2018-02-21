@@ -1,5 +1,6 @@
 var c01 = require('./c01.js');
 var countup = require('./countup.js');
+var cricket = require('./cricket.js');
 var totalplayer;
 var chatObj = {
     host: location.host,
@@ -29,15 +30,17 @@ var chatObj = {
     },
     // 顯示訊息
     showMsg: function(message) {
+        console.log(message);
         if (message.search("c01") != -1) {
             c01(message.replace("c01", ""), totalplayer)
             console.log(message);
         } else if (message.search("countup") != -1) {
             countup(message.replace("countup", ""), totalplayer);
             console.log(message);
-
+        }else if (message.search("cricket") != -1) {
+            cricket(message.replace("cricket", ""), totalplayer);
+            console.log(message);
         }
-        // countup(message);
 
     }
 };
@@ -62,7 +65,7 @@ $(function() {
         $("#player2Dart").text(0);
         $("#player3Dart").text(0);
 
-        chatObj.sendMsg(this.id, "");
+        chatObj.sendMsg(this.id, "none");
         return false;
     });
     $('#CR').click(function() {
@@ -72,7 +75,7 @@ $(function() {
         $("#selectmod").hide();
         
 
-        chatObj.sendMsg(this.id, "");
+        chatObj.sendMsg("cricket", "none");
         return false;
     });
     chatObj.init();
